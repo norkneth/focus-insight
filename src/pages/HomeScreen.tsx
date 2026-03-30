@@ -5,6 +5,7 @@ import FocusRing from "@/components/FocusRing";
 interface HomeScreenProps {
   username?: string;
   onOpenTimer?: () => void;
+  onOpenProfile?: () => void;
 }
 
 const HomeScreen = ({ username, onOpenTimer }: HomeScreenProps) => {
