@@ -24,18 +24,7 @@ const generateUsers = (seed: number) => {
     percentile: `top ${Math.max(1, Math.round((i + 1) / 50 * 100))}%`,
     isUser: false,
   }));
-  // Insert user at different positions
-  const userRank = seed === 0 ? 4 : seed === 1 ? 3 : 4;
-  users.splice(userRank - 1, 0, {
-    rank: userRank,
-    name: "You",
-    score: Math.round((99.5 - (userRank - 1) * 0.9) * 10) / 10,
-    streak: 12,
-    percentile: `top ${Math.max(1, Math.round(userRank / 50 * 100))}%`,
-    isUser: true,
-  });
-  // Re-rank
-  return users.slice(0, 51).map((u, i) => ({ ...u, rank: i + 1 }));
+  return users.slice(0, 50).map((u, i) => ({ ...u, rank: i + 1 }));
 };
 
 const dayData = generateUsers(0);
@@ -43,13 +32,6 @@ const weekData = generateUsers(1);
 const allData = generateUsers(2);
 
 const dataMap = { DAY: dayData, WEEK: weekData, ALL: allData };
-
-// Simulate user being outside top 50
-const getUserEntry = (data: typeof dayData) => {
-  const userInTop = data.find((d) => d.isUser && d.rank <= 50);
-  if (userInTop) return null;
-  return { rank: 1125, name: "You", score: 72.4, streak: 12, percentile: "top 24%", isUser: true };
-};
 
 interface LeaderboardScreenProps {
   username?: string;
@@ -60,7 +42,16 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
   const data = dataMap[activeTab];
   const top3 = data.slice(0, 3);
   const rest = data.slice(3, 50);
-  const userOutside = getUserEntry(data);
+
+  // Simulated user outside top 50
+  const userInTop = false;
+  const userEntry = {
+    rank: 69,
+    name: username.endsWith(".t1") ? username : `${username}.t1`,
+    score: 66.7,
+    streak: 12,
+    percentile: "top 24%",
+  };
 
   return (
     <motion.div
@@ -74,6 +65,22 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
       <div className="flex items-center justify-center px-6 pt-6 pb-4">
         <h1 className="text-sm tracking-[0.3em] font-semibold text-foreground">LEADERBOARD</h1>
       </div>
+
+      {/* User rank banner (if outside top 50) */}
+      {!userInTop && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="mx-6 mb-4 flex items-center justify-between bg-secondary rounded-xl px-4 py-3 border border-border"
+        >
+          <div className="flex flex-col">
+            <span className="text-sm font-semibold text-foreground">{userEntry.name}</span>
+            <span className="text-[10px] text-muted-foreground tracking-wide">{userEntry.percentile} · #{userEntry.rank}</span>
+          </div>
+          <span className="font-display text-lg font-bold text-foreground">{userEntry.score}</span>
+        </motion.div>
+      )}
 
       {/* Tabs */}
       <div className="flex items-center justify-center gap-2 mx-6 mb-6 p-1 bg-secondary rounded-xl">
@@ -116,7 +123,7 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
               {entry.rank === 1 && <Trophy size={14} className="text-yellow-400 mb-1" />}
               {entry.rank === 2 && <Medal size={12} className="text-gray-400 mb-1" />}
               {entry.rank === 3 && <Medal size={12} className="text-amber-600 mb-1" />}
-              <span className={`text-xs font-medium ${entry.isUser ? "text-foreground" : "text-muted-foreground"}`}>
+              <span className="text-xs font-medium text-muted-foreground">
                 {entry.name}
               </span>
               <span className="text-[9px] text-muted-foreground">{entry.percentile}</span>
@@ -136,62 +143,29 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 + idx * 0.02, duration: 0.25 }}
-            className={`flex items-center py-3.5 border-b border-border transition-all duration-300 ${
-              entry.isUser
-                ? "bg-foreground text-primary-foreground rounded-xl px-4 -mx-4 border-none shadow-lg shadow-white/5"
-                : ""
-            }`}
+            className="flex items-center py-3.5 border-b border-border"
           >
-            <span className={`font-display text-base font-bold w-10 ${
-              entry.isUser ? "text-primary-foreground" : "text-muted-foreground"
-            }`}>
+            <span className="font-display text-base font-bold w-10 text-muted-foreground">
               {String(entry.rank).padStart(2, "0")}
             </span>
             <div className="flex flex-col flex-1">
               <div className="flex items-center gap-2">
-                <span className={`text-sm font-medium ${entry.isUser ? "text-primary-foreground" : "text-foreground"}`}>
+                <span className="text-sm font-medium text-foreground">
                   {entry.name}
                 </span>
                 {entry.streak >= 10 && (
-                  <Flame size={13} className={entry.isUser ? "text-primary-foreground" : "text-orange-400"} />
+                  <Flame size={13} className="text-orange-400" />
                 )}
               </div>
-              <span className={`text-[10px] ${entry.isUser ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
+              <span className="text-[10px] text-muted-foreground">
                 {entry.percentile}
               </span>
             </div>
-            <span className={`font-display text-sm font-semibold ${
-              entry.isUser ? "text-primary-foreground" : "text-foreground"
-            }`}>
+            <span className="font-display text-sm font-semibold text-foreground">
               {entry.score}
             </span>
           </motion.div>
         ))}
-
-        {/* User outside top 50 */}
-        {userOutside && (
-          <>
-            <div className="flex items-center justify-center py-3 text-muted-foreground text-xs tracking-widest">
-              · · ·
-            </div>
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex items-center py-3.5 bg-foreground text-primary-foreground rounded-xl px-4 -mx-4 shadow-lg shadow-white/5"
-            >
-              <span className="font-display text-base font-bold w-12 text-primary-foreground">
-                #{userOutside.rank}
-              </span>
-              <div className="flex flex-col flex-1">
-                <span className="text-sm font-medium text-primary-foreground">{userOutside.name}</span>
-                <span className="text-[10px] text-primary-foreground/60">{userOutside.percentile}</span>
-              </div>
-              <span className="font-display text-sm font-semibold text-primary-foreground">
-                {userOutside.score}
-              </span>
-            </motion.div>
-          </>
-        )}
       </div>
     </motion.div>
   );
