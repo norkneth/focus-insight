@@ -5,9 +5,10 @@ import { motion } from "framer-motion";
 interface ProfileScreenProps {
   onBack?: () => void;
   onSettings?: () => void;
+  username?: string;
 }
 
-const ProfileScreen = ({ onBack, onSettings }: ProfileScreenProps) => {
+const ProfileScreen = ({ onBack, onSettings, username: usernameProp }: ProfileScreenProps) => {
   const [focusReminders, setFocusReminders] = useState(false);
   const [privacyMode, setPrivacyMode] = useState(true);
   const [isEditing, setIsEditing] = useState(false);

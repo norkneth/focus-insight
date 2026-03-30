@@ -5,11 +5,12 @@ import QuestionScreen from "./QuestionScreen";
 import PermissionScreen from "./PermissionScreen";
 import AnalysisScreen from "./AnalysisScreen";
 import ResultScreen from "./ResultScreen";
+import UsernameScreen from "./UsernameScreen";
 
-type Step = "auth" | "questions" | "permissions" | "analysis" | "result";
+type Step = "auth" | "questions" | "permissions" | "analysis" | "result" | "username";
 
 interface OnboardingFlowProps {
-  onComplete: () => void;
+  onComplete: (username: string) => void;
 }
 
 const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
@@ -17,9 +18,8 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
   const [focusScore, setFocusScore] = useState(68);
 
   const handleQuestionsComplete = (answers: number[]) => {
-    // Generate score based on answers
     const base = 55;
-    const seriousness = answers[5] || 0; // last question
+    const seriousness = answers[5] || 0;
     const bonus = seriousness * 8 + Math.floor(Math.random() * 15);
     setFocusScore(Math.min(base + bonus, 92));
     setStep("permissions");
@@ -40,7 +40,8 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
           {step === "questions" && <QuestionScreen onComplete={handleQuestionsComplete} />}
           {step === "permissions" && <PermissionScreen onContinue={() => setStep("analysis")} />}
           {step === "analysis" && <AnalysisScreen onComplete={() => setStep("result")} />}
-          {step === "result" && <ResultScreen score={focusScore} onContinue={onComplete} />}
+          {step === "result" && <ResultScreen score={focusScore} onContinue={() => setStep("username")} />}
+          {step === "username" && <UsernameScreen onComplete={(name) => onComplete(name)} />}
         </motion.div>
       </AnimatePresence>
     </div>
