@@ -8,7 +8,7 @@ interface HomeScreenProps {
   onOpenProfile?: () => void;
 }
 
-const HomeScreen = ({ username, onOpenTimer }: HomeScreenProps) => {
+const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) => {
   const score = 85;
   const percentile = 76;
 
