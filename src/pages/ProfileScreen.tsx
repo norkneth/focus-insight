@@ -8,7 +8,7 @@ interface ProfileScreenProps {
   username?: string;
 }
 
-const ProfileScreen = ({ onBack, onSettings }: ProfileScreenProps) => {
+const ProfileScreen = ({ onBack, onSettings, username: usernameProp }: ProfileScreenProps) => {
   const [focusReminders, setFocusReminders] = useState(false);
   const [privacyMode, setPrivacyMode] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
