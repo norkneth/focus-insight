@@ -2,7 +2,12 @@ import { User, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import FocusRing from "@/components/FocusRing";
 
-const HomeScreen = () => {
+interface HomeScreenProps {
+  username?: string;
+  onOpenTimer?: () => void;
+}
+
+const HomeScreen = ({ username, onOpenTimer }: HomeScreenProps) => {
   const score = 85;
   const percentile = 76;
 
@@ -24,7 +29,7 @@ const HomeScreen = () => {
 
       {/* Focus Ring Area */}
       <div className="flex-1 flex flex-col items-center justify-center -mt-4">
-        {/* Nudge text - BIGGER AND BOLDER */}
+        {/* Nudge text */}
         <motion.p
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -50,6 +55,7 @@ const HomeScreen = () => {
         <div className="flex justify-end w-full mt-4 pr-4">
           <motion.button
             whileTap={{ scale: 0.9 }}
+            onClick={onOpenTimer}
             className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center"
           >
             <Zap size={16} className="text-muted-foreground" />
@@ -79,7 +85,7 @@ const HomeScreen = () => {
         <div className="w-px h-10 bg-border" />
         <div className="flex flex-col items-center">
           <span className="font-display text-2xl font-bold text-foreground">5.5</span>
-          <span className="text-[10px] tracking-[0.2em] text-muted-foreground mt-1">HOURS</span>
+          <span className="text-[10px] tracking-[0.2em] text-muted-foreground mt-1">SAVED HOURS</span>
         </div>
       </motion.div>
     </motion.div>
