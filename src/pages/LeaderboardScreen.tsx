@@ -51,7 +51,11 @@ const getUserEntry = (data: typeof dayData) => {
   return { rank: 1125, name: "You", score: 72.4, streak: 12, percentile: "top 24%", isUser: true };
 };
 
-const LeaderboardScreen = () => {
+interface LeaderboardScreenProps {
+  username?: string;
+}
+
+const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
   const [activeTab, setActiveTab] = useState<typeof tabs[number]>("WEEK");
   const data = dataMap[activeTab];
   const top3 = data.slice(0, 3);

@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 interface ProfileScreenProps {
   onBack?: () => void;
   onSettings?: () => void;
+  username?: string;
 }
 
 const ProfileScreen = ({ onBack, onSettings }: ProfileScreenProps) => {
