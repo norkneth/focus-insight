@@ -39,7 +39,7 @@ const Index = () => {
   return (
     <div className="max-w-md mx-auto relative min-h-screen bg-background">
       <AnimatePresence mode="wait">
-        {activeTab === "home" && <HomeScreen username={username} onOpenTimer={() => setShowTimer(true)} />}
+        {activeTab === "home" && <HomeScreen username={username} onOpenTimer={() => setShowTimer(true)} onOpenProfile={() => setActiveTab("user")} />}
         {activeTab === "rank" && <LeaderboardScreen username={username} />}
         {activeTab === "user" && (
           <ProfileScreen
