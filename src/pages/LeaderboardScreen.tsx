@@ -120,6 +120,22 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
 
       <div className="h-px bg-border mx-6 mb-2" />
 
+      {/* User rank banner (if outside top 50) */}
+      {!userInTop && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="mx-6 mb-4 flex items-center justify-between bg-secondary rounded-xl px-4 py-3 border border-border"
+        >
+          <div className="flex flex-col">
+            <span className="text-sm font-semibold text-foreground">{userEntry.name}</span>
+            <span className="text-[10px] text-muted-foreground tracking-wide">{userEntry.percentile} · #{userEntry.rank}</span>
+          </div>
+          <span className="font-display text-lg font-bold text-foreground">{userEntry.score}</span>
+        </motion.div>
+      )}
+
       {/* List */}
       <div className="flex flex-col px-6 overflow-y-auto">
         {rest.map((entry, idx) => (
@@ -153,21 +169,6 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
         ))}
       </div>
 
-      {/* User rank banner (if outside top 50) */}
-      {!userInTop && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="sticky bottom-20 mx-6 mt-4 flex items-center justify-between bg-secondary rounded-xl px-4 py-3 border border-border"
-        >
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold text-foreground">{userEntry.name}</span>
-            <span className="text-[10px] text-muted-foreground tracking-wide">{userEntry.percentile} · #{userEntry.rank}</span>
-          </div>
-          <span className="font-display text-lg font-bold text-foreground">{userEntry.score}</span>
-        </motion.div>
-      )}
     </motion.div>
   );
 };
