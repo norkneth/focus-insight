@@ -64,23 +64,6 @@ const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) =
         </div>
       </div>
 
-      {/* Behavioral Insights */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.5 }}
-        className="flex flex-col gap-2 mb-6"
-      >
-        <div className="bg-secondary rounded-xl px-4 py-3 border border-border">
-          <p className="text-xs text-foreground font-medium">Your focus improved <span className="text-green-400 font-bold">18%</span> from yesterday</p>
-        </div>
-        <div className="bg-secondary rounded-xl px-4 py-3 border border-border">
-          <p className="text-xs text-foreground font-medium">You lose focus mostly at <span className="text-orange-400 font-bold">night</span> — try morning sessions</p>
-        </div>
-        <div className="bg-secondary rounded-xl px-4 py-3 border border-border">
-          <p className="text-xs text-foreground font-medium">3-day streak! <span className="text-yellow-400 font-bold">Keep going</span> to unlock rewards</p>
-        </div>
-      </motion.div>
 
       {/* Divider */}
       <div className="h-px bg-border mx-2 mb-6" />
