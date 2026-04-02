@@ -1,6 +1,6 @@
-import { Flame, Trophy, Medal } from "lucide-react";
+import { Flame, Trophy, Medal, TrendingUp, TrendingDown, Swords } from "lucide-react";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const tabs = ["DAY", "WEEK", "ALL"] as const;
 
@@ -23,6 +23,7 @@ const generateUsers = (seed: number) => {
     streak: Math.max(1, 25 - i + (seed * i % 7)),
     percentile: `top ${Math.max(1, Math.round((i + 1) / 50 * 100))}%`,
     isUser: false,
+    movement: ((seed + i) % 3 === 0) ? "up" as const : ((seed + i) % 3 === 1) ? "down" as const : "same" as const,
   }));
   return users.slice(0, 50).map((u, i) => ({ ...u, rank: i + 1 }));
 };
@@ -43,7 +44,6 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
   const top3 = data.slice(0, 3);
   const rest = data.slice(3, 50);
 
-  // Simulated user outside top 50
   const userInTop = false;
   const userEntry = {
     rank: 69,
@@ -66,18 +66,24 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
         <h1 className="text-sm tracking-[0.3em] font-semibold text-foreground">LEADERBOARD</h1>
       </div>
 
-
-      {/* Tabs */}
-      <div className="flex items-center justify-center gap-2 mx-6 mb-6 p-1 bg-secondary rounded-xl">
+      {/* Tabs with animation */}
+      <div className="flex items-center justify-center gap-2 mx-6 mb-6 p-1 bg-secondary rounded-xl relative">
         {tabs.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`flex-1 text-xs tracking-[0.15em] py-2.5 rounded-lg transition-all duration-300 font-semibold ${
-              activeTab === tab ? "bg-foreground text-primary-foreground" : "text-muted-foreground"
+            className={`flex-1 text-xs tracking-[0.15em] py-2.5 rounded-lg transition-all duration-300 font-semibold relative z-10 ${
+              activeTab === tab ? "text-primary-foreground" : "text-muted-foreground"
             }`}
           >
-            {tab}
+            {activeTab === tab && (
+              <motion.div
+                layoutId="tab-indicator"
+                className="absolute inset-0 bg-foreground rounded-lg"
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              />
+            )}
+            <span className="relative z-10">{tab}</span>
           </button>
         ))}
       </div>
@@ -99,7 +105,10 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
             >
               <div
                 className={`rounded-full bg-secondary border-2 ${borderColor} flex items-center justify-center mb-2`}
-                style={{ width: isCenter ? 64 : 48, height: isCenter ? 64 : 48 }}
+                style={{
+                  width: isCenter ? 64 : 48, height: isCenter ? 64 : 48,
+                  boxShadow: entry.rank === 1 ? "0 0 20px hsla(45, 93%, 47%, 0.3)" : "none",
+                }}
               >
                 <span className="font-display text-lg font-bold text-foreground">
                   {entry.name.charAt(0)}
@@ -108,11 +117,18 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
               {entry.rank === 1 && <Trophy size={14} className="text-yellow-400 mb-1" />}
               {entry.rank === 2 && <Medal size={12} className="text-gray-400 mb-1" />}
               {entry.rank === 3 && <Medal size={12} className="text-amber-600 mb-1" />}
-              <span className="text-xs font-medium text-muted-foreground">
-                {entry.name}
-              </span>
+              <span className="text-xs font-medium text-muted-foreground">{entry.name}</span>
               <span className="text-[9px] text-muted-foreground">{entry.percentile}</span>
               <span className="font-display text-sm font-bold text-foreground">{entry.score}</span>
+
+              {/* Challenge button for top 3 */}
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                className="mt-1 flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary border border-border"
+              >
+                <Swords size={10} className="text-muted-foreground" />
+                <span className="text-[9px] text-muted-foreground font-medium">Challenge</span>
+              </motion.button>
             </motion.div>
           );
         })}
@@ -120,13 +136,13 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
 
       <div className="h-px bg-border mx-6 mb-2" />
 
-      {/* User rank banner (if outside top 50) */}
+      {/* User rank banner (top) */}
       {!userInTop && (
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="mx-6 mb-4 flex items-center justify-between bg-secondary rounded-xl px-4 py-3 border border-border"
+          className="mx-6 mb-4 flex items-center justify-between bg-card rounded-xl px-4 py-3 border border-border glow-sm"
         >
           <div className="flex flex-col">
             <span className="text-sm font-semibold text-foreground">{userEntry.name}</span>
@@ -138,37 +154,41 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
 
       {/* List */}
       <div className="flex flex-col px-6 overflow-y-auto">
-        {rest.map((entry, idx) => (
-          <motion.div
-            key={`${activeTab}-${entry.rank}`}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 + idx * 0.02, duration: 0.25 }}
-            className="flex items-center py-3.5 border-b border-border"
-          >
-            <span className="font-display text-base font-bold w-10 text-muted-foreground">
-              {String(entry.rank).padStart(2, "0")}
-            </span>
-            <div className="flex flex-col flex-1">
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-foreground">
-                  {entry.name}
+        <AnimatePresence mode="wait">
+          <motion.div key={activeTab} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            {rest.map((entry, idx) => (
+              <motion.div
+                key={`${activeTab}-${entry.rank}`}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 + idx * 0.02, duration: 0.25 }}
+                className="flex items-center py-3.5 border-b border-border"
+              >
+                <span className="font-display text-base font-bold w-10 text-muted-foreground">
+                  {String(entry.rank).padStart(2, "0")}
                 </span>
-                {entry.streak >= 10 && (
-                  <Flame size={13} className="text-orange-400" />
-                )}
-              </div>
-              <span className="text-[10px] text-muted-foreground">
-                {entry.percentile}
-              </span>
-            </div>
-            <span className="font-display text-sm font-semibold text-foreground">
-              {entry.score}
-            </span>
-          </motion.div>
-        ))}
-      </div>
 
+                {/* Movement indicator */}
+                <div className="w-5 mr-1">
+                  {entry.movement === "up" && <TrendingUp size={12} className="text-emerald-400" />}
+                  {entry.movement === "down" && <TrendingDown size={12} className="text-red-400" />}
+                </div>
+
+                <div className="flex flex-col flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-foreground">{entry.name}</span>
+                    {entry.streak >= 10 && (
+                      <Flame size={13} className="text-orange-400" />
+                    )}
+                  </div>
+                  <span className="text-[10px] text-muted-foreground">{entry.percentile}</span>
+                </div>
+                <span className="font-display text-sm font-semibold text-foreground">{entry.score}</span>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </motion.div>
   );
 };
