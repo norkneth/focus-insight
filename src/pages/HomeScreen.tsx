@@ -112,8 +112,8 @@ const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) =
         transition={{ delay: 1, duration: 0.5 }}
         whileTap={{ scale: 0.95 }}
         onClick={onOpenTimer}
-        className="w-full py-4 rounded-full bg-foreground text-primary-foreground font-semibold text-sm tracking-wide flex items-center justify-center gap-2"
-        style={{ boxShadow: "0 0 25px hsla(0, 0%, 100%, 0.15)" }}
+        className="w-full py-4 rounded-full bg-foreground text-primary-foreground font-semibold text-sm tracking-wide flex items-center justify-center gap-2 glow-lg"
+        style={{ boxShadow: "0 0 30px hsla(220, 60%, 70%, 0.2), 0 4px 15px hsla(0, 0%, 0%, 0.4)" }}
       >
         <Zap size={16} />
         Start Focus Session
