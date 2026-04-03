@@ -75,18 +75,19 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
-      className="min-h-screen bg-background flex flex-col pb-28"
+      className="min-h-screen flex flex-col pb-28"
+      style={{ background: "linear-gradient(180deg, hsl(240 6% 6%) 0%, hsl(240 8% 3%) 60%)" }}
     >
       {/* Header */}
       <div className="flex flex-col items-center px-6 pt-6 pb-2">
         <span className="text-[10px] tracking-[0.3em] text-muted-foreground font-semibold mb-1">LEADERBOARD</span>
-        <h1 className="font-display text-2xl font-bold text-foreground tracking-tight">
+        <h1 className="font-display text-2xl font-extrabold text-foreground tracking-tight drop-shadow-sm">
           Stay hard to catch.
         </h1>
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center justify-center gap-0 mx-6 mt-4 mb-6 p-1 bg-secondary rounded-full relative">
+      <div className="flex items-center justify-center gap-0 mx-6 mt-4 mb-6 p-1 bg-surface-gradient rounded-full relative glow-sm">
         {tabs.map((tab) => (
           <button
             key={tab}
@@ -128,7 +129,7 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1, duration: 0.4 }}
-              className={`flex-1 flex flex-col items-center bg-card border ${cardBorder} rounded-2xl py-4 px-2 ${isCenter ? "scale-[1.02]" : ""}`}
+              className={`flex-1 flex flex-col items-center card-elevated rounded-2xl py-4 px-2 ${isCenter ? "scale-[1.02]" : ""}`}
               style={{ boxShadow: cardGlow }}
             >
               {/* Avatar */}
@@ -141,9 +142,9 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
                 </span>
               </div>
 
-              <span className="text-xs font-semibold text-foreground text-center leading-tight">{entry.name}</span>
-              <span className="text-[9px] text-muted-foreground mt-0.5">TOP {entry.percentile.replace("top ", "")}</span>
-              <span className="font-display text-xl font-bold text-foreground mt-1">{entry.score}</span>
+              <span className="text-xs font-bold text-foreground text-center leading-tight">{entry.name}</span>
+              <span className="text-[9px] text-dim mt-0.5">TOP {entry.percentile.replace("top ", "")}</span>
+              <span className="font-display text-xl text-bright mt-1">{entry.score}</span>
 
               {/* CTA */}
               <motion.button
@@ -164,17 +165,17 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="mx-6 mb-4 flex items-center justify-between bg-card rounded-2xl px-4 py-3.5 border border-border"
+          className="mx-6 mb-4 flex items-center justify-between card-elevated rounded-2xl px-4 py-3.5 glow-sm"
         >
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold text-muted-foreground">#{userEntry.rank}</span>
               <span className="text-sm font-semibold text-foreground">{userEntry.name}</span>
             </div>
-            <span className="text-[10px] text-muted-foreground tracking-wide">{userEntry.percentile} · {userEntry.badge}</span>
+            <span className="text-[10px] text-dim tracking-wide">{userEntry.percentile} · {userEntry.badge}</span>
           </div>
           <div className="flex flex-col items-end">
-            <span className="font-display text-xl font-bold text-foreground">{userEntry.score}</span>
+            <span className="font-display text-xl text-bright">{userEntry.score}</span>
             <div className="flex items-center gap-0.5">
               <TrendingDown size={10} className="text-red-400" />
               <span className="text-[9px] text-red-400 font-medium">-{userEntry.movementVal}</span>
@@ -197,7 +198,7 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
                   transition={{ delay: 0.05 + idx * 0.02, duration: 0.25 }}
                   className={`flex items-center py-3.5 border-b border-border ${isUserRow ? "bg-card/50 -mx-2 px-2 rounded-lg" : ""}`}
                 >
-                  <span className="font-display text-base font-bold w-8 text-muted-foreground">
+                  <span className="font-display text-base font-bold w-8 text-dim">
                     {entry.rank}
                   </span>
 
@@ -218,10 +219,10 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
                         </span>
                       )}
                     </div>
-                    <span className="text-[10px] text-muted-foreground">top {entry.percentile.replace("top ", "")} performer</span>
+                    <span className="text-[10px] text-dim">top {entry.percentile.replace("top ", "")} performer</span>
                   </div>
 
-                  <span className="font-display text-base font-bold text-foreground">{entry.score}</span>
+                  <span className="font-display text-base text-bright">{entry.score}</span>
                 </motion.div>
               );
             })}

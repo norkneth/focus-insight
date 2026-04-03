@@ -78,7 +78,8 @@ const ProfileScreen = ({ onBack, onSettings, username: usernameProp }: ProfileSc
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
-      className="min-h-screen bg-background flex flex-col pb-28"
+      className="min-h-screen flex flex-col pb-28"
+      style={{ background: "linear-gradient(180deg, hsl(240 6% 6%) 0%, hsl(240 8% 3%) 60%)" }}
     >
       {/* Header */}
       <div className="flex items-center justify-center px-6 pt-6 pb-4 relative">
@@ -137,15 +138,15 @@ const ProfileScreen = ({ onBack, onSettings, username: usernameProp }: ProfileSc
 
 
       {/* Stats */}
-      <div className="flex items-center justify-around mx-6 py-5 border-y border-border mb-4">
+      <div className="flex items-center justify-around mx-6 py-5 border-y border-border mb-4 card-elevated rounded-2xl">
         <div className="flex flex-col items-center">
-          <span className="font-display text-3xl font-bold text-foreground">412</span>
-          <span className="text-[9px] tracking-[0.25em] text-muted-foreground mt-1">FOCUS HOURS</span>
+          <span className="font-display text-3xl text-bright">412</span>
+          <span className="text-[9px] tracking-[0.25em] text-dim mt-1">FOCUS HOURS</span>
         </div>
         <div className="w-px h-12 bg-border" />
         <div className="flex flex-col items-center">
-          <span className="font-display text-3xl font-bold text-foreground">84</span>
-          <span className="text-[9px] tracking-[0.25em] text-muted-foreground mt-1">SESSIONS</span>
+          <span className="font-display text-3xl text-bright">84</span>
+          <span className="text-[9px] tracking-[0.25em] text-dim mt-1">SESSIONS</span>
         </div>
       </div>
 
@@ -203,8 +204,8 @@ const ProfileScreen = ({ onBack, onSettings, username: usernameProp }: ProfileSc
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: a.unlocked ? 1 : 0.4, scale: 1 }}
                 transition={{ delay: 0.7 + i * 0.08 }}
-                className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border ${
-                  a.unlocked ? "bg-card border-border glow-sm" : "bg-secondary border-border"
+                className={`flex items-center gap-2 px-3 py-2.5 rounded-xl ${
+                  a.unlocked ? "card-elevated glow-sm" : "bg-secondary border border-border"
                 }`}
               >
                 <Icon size={14} className={a.unlocked ? "text-foreground" : "text-muted-foreground"} />

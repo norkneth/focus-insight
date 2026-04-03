@@ -16,7 +16,8 @@ const BottomNav = ({ active, onNavigate }: BottomNavProps) => {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto px-6 pb-4 pt-2 z-50">
-      <div className="bg-nav rounded-2xl flex items-center justify-around py-3 px-4 backdrop-blur-xl border border-border">
+      <div className="rounded-2xl flex items-center justify-around py-3 px-4 backdrop-blur-xl border border-border glow-md"
+        style={{ background: "linear-gradient(145deg, hsl(240 5% 11%), hsl(240 6% 7%))" }}>
         {tabs.map(({ id, icon: Icon, label }) => (
           <button
             key={id}

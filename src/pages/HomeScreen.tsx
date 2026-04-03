@@ -29,13 +29,14 @@ const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) =
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
-      className="min-h-screen bg-background flex flex-col px-6 pt-6 pb-28"
+      className="min-h-screen flex flex-col px-6 pt-6 pb-28"
+      style={{ background: "linear-gradient(180deg, hsl(240 6% 6%) 0%, hsl(240 8% 3%) 60%)" }}
     >
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="font-display text-xl font-bold text-foreground tracking-tight">T1.</h1>
-        <button onClick={onOpenProfile} className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center active:scale-90 transition-transform">
-          <User size={18} className="text-muted-foreground" />
+        <h1 className="font-display text-xl font-bold text-foreground tracking-tight drop-shadow-sm">T1.</h1>
+        <button onClick={onOpenProfile} className="w-10 h-10 rounded-full bg-surface-gradient flex items-center justify-center active:scale-90 transition-transform glow-sm">
+          <User size={18} className="text-dim" />
         </button>
       </div>
 
@@ -46,7 +47,7 @@ const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) =
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.5 }}
-          className="text-foreground text-base tracking-[0.15em] mb-6 font-bold uppercase"
+          className="text-foreground text-base tracking-[0.15em] mb-6 font-extrabold uppercase drop-shadow-sm"
         >
           Ahead of {percentile}% of users
         </motion.p>
@@ -58,7 +59,7 @@ const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) =
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.5 }}
-          className="text-muted-foreground text-xs tracking-[0.2em] mt-3 font-medium"
+          className="text-dim text-xs tracking-[0.2em] mt-3 font-medium"
         >
           TOP {100 - percentile}% PERFORMER
         </motion.p>
@@ -76,31 +77,31 @@ const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) =
 
 
       {/* Divider */}
-      <div className="h-px bg-border mx-2 mb-5" />
+      <div className="h-px mx-2 mb-5" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--border)), transparent)" }} />
 
       {/* Stats */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.5 }}
-        className="flex items-center justify-around mb-6"
+        className="flex items-center justify-around mb-6 card-elevated rounded-2xl py-5"
       >
         <div className="flex flex-col items-center">
           <div className="flex items-center gap-1">
-            <span className="font-display text-2xl font-bold text-foreground">{streak}</span>
-            <Flame size={streak >= 14 ? 22 : streak >= 7 ? 18 : 14} className={`${streakColors[streakLevel]} transition-all`} />
+            <span className="font-display text-2xl text-bright">{streak}</span>
+            <Flame size={streak >= 14 ? 22 : streak >= 7 ? 18 : 14} className={`${streakColors[streakLevel]} transition-all drop-shadow-md`} />
           </div>
-          <span className="text-[10px] tracking-[0.2em] text-muted-foreground mt-1">STREAK</span>
+          <span className="text-[10px] tracking-[0.2em] text-dim mt-1">STREAK</span>
         </div>
         <div className="w-px h-10 bg-border" />
         <div className="flex flex-col items-center">
-          <span className="font-display text-2xl font-bold text-foreground">24</span>
-          <span className="text-[10px] tracking-[0.2em] text-muted-foreground mt-1">SESSIONS</span>
+          <span className="font-display text-2xl text-bright">24</span>
+          <span className="text-[10px] tracking-[0.2em] text-dim mt-1">SESSIONS</span>
         </div>
         <div className="w-px h-10 bg-border" />
         <div className="flex flex-col items-center">
-          <span className="font-display text-2xl font-bold text-foreground">5.5</span>
-          <span className="text-[10px] tracking-[0.2em] text-muted-foreground mt-1">SAVED HOURS</span>
+          <span className="font-display text-2xl text-bright">5.5</span>
+          <span className="text-[10px] tracking-[0.2em] text-dim mt-1">SAVED HOURS</span>
         </div>
       </motion.div>
 
@@ -111,8 +112,8 @@ const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) =
         transition={{ delay: 1, duration: 0.5 }}
         whileTap={{ scale: 0.95 }}
         onClick={onOpenTimer}
-        className="w-full py-4 rounded-full bg-foreground text-primary-foreground font-semibold text-sm tracking-wide flex items-center justify-center gap-2"
-        style={{ boxShadow: "0 0 25px hsla(0, 0%, 100%, 0.15)" }}
+        className="w-full py-4 rounded-full bg-foreground text-primary-foreground font-semibold text-sm tracking-wide flex items-center justify-center gap-2 glow-lg"
+        style={{ boxShadow: "0 0 30px hsla(220, 60%, 70%, 0.2), 0 4px 15px hsla(0, 0%, 0%, 0.4)" }}
       >
         <Zap size={16} />
         Start Focus Session
