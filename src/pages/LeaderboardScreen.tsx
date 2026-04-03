@@ -175,7 +175,7 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
             <span className="text-[10px] text-dim tracking-wide">{userEntry.percentile} · {userEntry.badge}</span>
           </div>
           <div className="flex flex-col items-end">
-            <span className="font-display text-xl font-bold text-foreground">{userEntry.score}</span>
+            <span className="font-display text-xl text-bright">{userEntry.score}</span>
             <div className="flex items-center gap-0.5">
               <TrendingDown size={10} className="text-red-400" />
               <span className="text-[9px] text-red-400 font-medium">-{userEntry.movementVal}</span>
