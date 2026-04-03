@@ -91,7 +91,7 @@ const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) =
             <span className="font-display text-2xl text-bright">{streak}</span>
             <Flame size={streak >= 14 ? 22 : streak >= 7 ? 18 : 14} className={`${streakColors[streakLevel]} transition-all drop-shadow-md`} />
           </div>
-          <span className="text-[10px] tracking-[0.2em] text-muted-foreground mt-1">STREAK</span>
+          <span className="text-[10px] tracking-[0.2em] text-dim mt-1">STREAK</span>
         </div>
         <div className="w-px h-10 bg-border" />
         <div className="flex flex-col items-center">
