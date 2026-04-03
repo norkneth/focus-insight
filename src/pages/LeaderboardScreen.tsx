@@ -142,9 +142,9 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
                 </span>
               </div>
 
-              <span className="text-xs font-semibold text-foreground text-center leading-tight">{entry.name}</span>
-              <span className="text-[9px] text-muted-foreground mt-0.5">TOP {entry.percentile.replace("top ", "")}</span>
-              <span className="font-display text-xl font-bold text-foreground mt-1">{entry.score}</span>
+              <span className="text-xs font-bold text-foreground text-center leading-tight">{entry.name}</span>
+              <span className="text-[9px] text-dim mt-0.5">TOP {entry.percentile.replace("top ", "")}</span>
+              <span className="font-display text-xl text-bright mt-1">{entry.score}</span>
 
               {/* CTA */}
               <motion.button
