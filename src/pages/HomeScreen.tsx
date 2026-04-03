@@ -34,7 +34,7 @@ const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) =
     >
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="font-display text-xl font-bold text-foreground tracking-tight">T1.</h1>
+        <h1 className="font-display text-xl font-bold text-foreground tracking-tight drop-shadow-sm">T1.</h1>
         <button onClick={onOpenProfile} className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center active:scale-90 transition-transform">
           <User size={18} className="text-muted-foreground" />
         </button>
