@@ -1,4 +1,4 @@
-import { Flame, Trophy, Medal, TrendingUp, TrendingDown, Swords } from "lucide-react";
+import { Flame, TrendingUp, TrendingDown, Swords } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -24,6 +24,7 @@ const generateUsers = (seed: number) => {
     percentile: `top ${Math.max(1, Math.round((i + 1) / 50 * 100))}%`,
     isUser: false,
     movement: ((seed + i) % 3 === 0) ? "up" as const : ((seed + i) % 3 === 1) ? "down" as const : "same" as const,
+    movementVal: ((seed + i) % 5) + 1,
   }));
   return users.slice(0, 50).map((u, i) => ({ ...u, rank: i + 1 }));
 };
@@ -33,6 +34,8 @@ const weekData = generateUsers(1);
 const allData = generateUsers(2);
 
 const dataMap = { DAY: dayData, WEEK: weekData, ALL: allData };
+
+const avatarColors = ["bg-yellow-500", "bg-emerald-500", "bg-red-500", "bg-blue-500", "bg-purple-500", "bg-pink-500", "bg-cyan-500", "bg-orange-500"];
 
 interface LeaderboardScreenProps {
   username?: string;
@@ -46,11 +49,24 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
 
   const userInTop = false;
   const userEntry = {
-    rank: 69,
+    rank: 9,
     name: username.endsWith(".t1") ? username : `${username}.t1`,
-    score: 66.7,
+    score: 58.0,
     streak: 12,
-    percentile: "top 24%",
+    percentile: "top 42%",
+    badge: "Silver badge",
+    movement: "down" as const,
+    movementVal: 3,
+  };
+
+  const getAvatarColor = (name: string) => {
+    const idx = name.charCodeAt(0) % avatarColors.length;
+    return avatarColors[idx];
+  };
+
+  const getCtaLabel = (rank: number) => {
+    if (rank === 1) return "CHALLENGE";
+    return "COMPARE";
   };
 
   return (
@@ -62,24 +78,27 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
       className="min-h-screen bg-background flex flex-col pb-28"
     >
       {/* Header */}
-      <div className="flex items-center justify-center px-6 pt-6 pb-4">
-        <h1 className="text-sm tracking-[0.3em] font-semibold text-foreground">LEADERBOARD</h1>
+      <div className="flex flex-col items-center px-6 pt-6 pb-2">
+        <span className="text-[10px] tracking-[0.3em] text-muted-foreground font-semibold mb-1">LEADERBOARD</span>
+        <h1 className="font-display text-2xl font-bold text-foreground tracking-tight">
+          Stay hard to catch.
+        </h1>
       </div>
 
-      {/* Tabs with animation */}
-      <div className="flex items-center justify-center gap-2 mx-6 mb-6 p-1 bg-secondary rounded-xl relative">
+      {/* Tabs */}
+      <div className="flex items-center justify-center gap-0 mx-6 mt-4 mb-6 p-1 bg-secondary rounded-full relative">
         {tabs.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`flex-1 text-xs tracking-[0.15em] py-2.5 rounded-lg transition-all duration-300 font-semibold relative z-10 ${
+            className={`flex-1 text-xs tracking-[0.12em] py-2.5 rounded-full transition-all duration-300 font-semibold relative z-10 ${
               activeTab === tab ? "text-primary-foreground" : "text-muted-foreground"
             }`}
           >
             {activeTab === tab && (
               <motion.div
                 layoutId="tab-indicator"
-                className="absolute inset-0 bg-foreground rounded-lg"
+                className="absolute inset-0 bg-foreground rounded-full"
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
               />
             )}
@@ -88,67 +107,79 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
         ))}
       </div>
 
-      {/* Top 3 Podium */}
-      <div className="flex items-end justify-center gap-3 px-6 mb-6">
+      {/* Top 3 Cards */}
+      <div className="flex items-stretch justify-center gap-3 px-4 mb-6">
         {[1, 0, 2].map((idx) => {
           const entry = top3[idx];
           if (!entry) return null;
           const isCenter = idx === 0;
-          const borderColor = entry.rank === 1 ? "border-yellow-400" : entry.rank === 2 ? "border-gray-400" : "border-amber-600";
+          const cardBorder = entry.rank === 1
+            ? "border-yellow-500/40"
+            : entry.rank === 2
+            ? "border-gray-500/30"
+            : "border-amber-700/30";
+          const cardGlow = entry.rank === 1
+            ? "0 0 20px hsla(45, 93%, 47%, 0.15)"
+            : "none";
+
           return (
             <motion.div
               key={`${activeTab}-${entry.rank}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1, duration: 0.4 }}
-              className={`flex flex-col items-center ${isCenter ? "mb-2" : ""}`}
+              className={`flex-1 flex flex-col items-center bg-card border ${cardBorder} rounded-2xl py-4 px-2 ${isCenter ? "scale-[1.02]" : ""}`}
+              style={{ boxShadow: cardGlow }}
             >
+              {/* Avatar */}
               <div
-                className={`rounded-full bg-secondary border-2 ${borderColor} flex items-center justify-center mb-2`}
-                style={{
-                  width: isCenter ? 64 : 48, height: isCenter ? 64 : 48,
-                  boxShadow: entry.rank === 1 ? "0 0 20px hsla(45, 93%, 47%, 0.3)" : "none",
-                }}
+                className={`rounded-full ${getAvatarColor(entry.name)} flex items-center justify-center mb-2`}
+                style={{ width: isCenter ? 52 : 44, height: isCenter ? 52 : 44 }}
               >
-                <span className="font-display text-lg font-bold text-foreground">
+                <span className="font-display text-lg font-bold text-background">
                   {entry.name.charAt(0)}
                 </span>
               </div>
-              {entry.rank === 1 && <Trophy size={14} className="text-yellow-400 mb-1" />}
-              {entry.rank === 2 && <Medal size={12} className="text-gray-400 mb-1" />}
-              {entry.rank === 3 && <Medal size={12} className="text-amber-600 mb-1" />}
-              <span className="text-xs font-medium text-muted-foreground">{entry.name}</span>
-              <span className="text-[9px] text-muted-foreground">{entry.percentile}</span>
-              <span className="font-display text-sm font-bold text-foreground">{entry.score}</span>
 
-              {/* Challenge button for top 3 */}
+              <span className="text-xs font-semibold text-foreground text-center leading-tight">{entry.name}</span>
+              <span className="text-[9px] text-muted-foreground mt-0.5">TOP {entry.percentile.replace("top ", "")}</span>
+              <span className="font-display text-xl font-bold text-foreground mt-1">{entry.score}</span>
+
+              {/* CTA */}
               <motion.button
                 whileTap={{ scale: 0.9 }}
-                className="mt-1 flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary border border-border"
+                className="mt-2 flex items-center gap-1 px-3 py-1 rounded-full bg-secondary border border-border"
               >
-                <Swords size={10} className="text-muted-foreground" />
-                <span className="text-[9px] text-muted-foreground font-medium">Challenge</span>
+                {entry.rank === 1 && <Swords size={10} className="text-muted-foreground" />}
+                <span className="text-[9px] text-muted-foreground font-bold tracking-wide">{getCtaLabel(entry.rank)}</span>
               </motion.button>
             </motion.div>
           );
         })}
       </div>
 
-      <div className="h-px bg-border mx-6 mb-2" />
-
-      {/* User rank banner (top) */}
+      {/* User rank banner */}
       {!userInTop && (
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="mx-6 mb-4 flex items-center justify-between bg-card rounded-xl px-4 py-3 border border-border glow-sm"
+          className="mx-6 mb-4 flex items-center justify-between bg-card rounded-2xl px-4 py-3.5 border border-border"
         >
           <div className="flex flex-col">
-            <span className="text-sm font-semibold text-foreground">{userEntry.name}</span>
-            <span className="text-[10px] text-muted-foreground tracking-wide">{userEntry.percentile} · #{userEntry.rank}</span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-muted-foreground">#{userEntry.rank}</span>
+              <span className="text-sm font-semibold text-foreground">{userEntry.name}</span>
+            </div>
+            <span className="text-[10px] text-muted-foreground tracking-wide">{userEntry.percentile} · {userEntry.badge}</span>
           </div>
-          <span className="font-display text-lg font-bold text-foreground">{userEntry.score}</span>
+          <div className="flex flex-col items-end">
+            <span className="font-display text-xl font-bold text-foreground">{userEntry.score}</span>
+            <div className="flex items-center gap-0.5">
+              <TrendingDown size={10} className="text-red-400" />
+              <span className="text-[9px] text-red-400 font-medium">-{userEntry.movementVal}</span>
+            </div>
+          </div>
         </motion.div>
       )}
 
@@ -156,36 +187,44 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
       <div className="flex flex-col px-6 overflow-y-auto">
         <AnimatePresence mode="wait">
           <motion.div key={activeTab} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            {rest.map((entry, idx) => (
-              <motion.div
-                key={`${activeTab}-${entry.rank}`}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 + idx * 0.02, duration: 0.25 }}
-                className="flex items-center py-3.5 border-b border-border"
-              >
-                <span className="font-display text-base font-bold w-10 text-muted-foreground">
-                  {String(entry.rank).padStart(2, "0")}
-                </span>
+            {rest.map((entry, idx) => {
+              const isUserRow = entry.rank === userEntry.rank;
+              return (
+                <motion.div
+                  key={`${activeTab}-${entry.rank}`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.05 + idx * 0.02, duration: 0.25 }}
+                  className={`flex items-center py-3.5 border-b border-border ${isUserRow ? "bg-card/50 -mx-2 px-2 rounded-lg" : ""}`}
+                >
+                  <span className="font-display text-base font-bold w-8 text-muted-foreground">
+                    {entry.rank}
+                  </span>
 
-                {/* Movement indicator */}
-                <div className="w-5 mr-1">
-                  {entry.movement === "up" && <TrendingUp size={12} className="text-emerald-400" />}
-                  {entry.movement === "down" && <TrendingDown size={12} className="text-red-400" />}
-                </div>
-
-                <div className="flex flex-col flex-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-foreground">{entry.name}</span>
-                    {entry.streak >= 10 && (
-                      <Flame size={13} className="text-orange-400" />
-                    )}
+                  <div className="flex flex-col flex-1 ml-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium text-foreground">{entry.name}</span>
+                      {/* Movement indicator inline */}
+                      {entry.movement === "up" && (
+                        <span className="flex items-center gap-0.5">
+                          <TrendingUp size={10} className="text-emerald-400" />
+                          <span className="text-[9px] text-emerald-400 font-medium">+{entry.movementVal}</span>
+                        </span>
+                      )}
+                      {entry.movement === "down" && (
+                        <span className="flex items-center gap-0.5">
+                          <TrendingDown size={10} className="text-red-400" />
+                          <span className="text-[9px] text-red-400 font-medium">-{entry.movementVal}</span>
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-[10px] text-muted-foreground">top {entry.percentile.replace("top ", "")} performer</span>
                   </div>
-                  <span className="text-[10px] text-muted-foreground">{entry.percentile}</span>
-                </div>
-                <span className="font-display text-sm font-semibold text-foreground">{entry.score}</span>
-              </motion.div>
-            ))}
+
+                  <span className="font-display text-base font-bold text-foreground">{entry.score}</span>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </AnimatePresence>
       </div>

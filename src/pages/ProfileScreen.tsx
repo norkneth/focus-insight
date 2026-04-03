@@ -131,46 +131,10 @@ const ProfileScreen = ({ onBack, onSettings, username: usernameProp }: ProfileSc
           <>
             <h2 className="font-display text-2xl font-bold text-foreground mt-4">{name}</h2>
             <p className="text-[10px] tracking-[0.25em] text-muted-foreground mt-1 uppercase">{title}</p>
-            {/* User type badge */}
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              className={`mt-2 px-3 py-1 rounded-full border text-[10px] tracking-[0.15em] font-semibold ${badgeColor}`}
-            >
-              {userType.toUpperCase()}
-            </motion.div>
           </>
         )}
       </div>
 
-      {/* Rank & Level Progress */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-        className="mx-6 mb-4 bg-card rounded-2xl border border-border p-4"
-      >
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <Award size={16} className={rankBadge.color} />
-            <span className={`text-xs font-bold tracking-[0.15em] ${rankBadge.color}`}>{rankBadge.label}</span>
-          </div>
-          <span className="text-[10px] text-muted-foreground">{currentXP}/{nextLevelXP} XP</span>
-        </div>
-        <div className="h-1.5 bg-secondary rounded-full overflow-hidden">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: `${xpPercent}%` }}
-            transition={{ delay: 0.6, duration: 1, ease: "easeOut" }}
-            className="h-full rounded-full bg-gradient-to-r from-foreground/60 to-foreground"
-            style={{ boxShadow: "0 0 8px hsla(0, 0%, 100%, 0.2)" }}
-          />
-        </div>
-        <p className="text-[10px] text-muted-foreground mt-2 text-center">
-          {nextLevelXP - currentXP} XP to next rank
-        </p>
-      </motion.div>
 
       {/* Stats */}
       <div className="flex items-center justify-around mx-6 py-5 border-y border-border mb-4">
