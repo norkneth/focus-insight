@@ -59,7 +59,7 @@ const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) =
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.5 }}
-          className="text-muted-foreground text-xs tracking-[0.2em] mt-3 font-medium"
+          className="text-dim text-xs tracking-[0.2em] mt-3 font-medium"
         >
           TOP {100 - percentile}% PERFORMER
         </motion.p>
