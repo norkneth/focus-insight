@@ -47,7 +47,7 @@ const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) =
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.5 }}
-          className="text-foreground text-base tracking-[0.15em] mb-6 font-bold uppercase"
+          className="text-foreground text-base tracking-[0.15em] mb-6 font-extrabold uppercase drop-shadow-sm"
         >
           Ahead of {percentile}% of users
         </motion.p>
