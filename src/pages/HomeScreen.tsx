@@ -29,7 +29,8 @@ const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) =
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
-      className="min-h-screen bg-background flex flex-col px-6 pt-6 pb-28"
+      className="min-h-screen flex flex-col px-6 pt-6 pb-28"
+      style={{ background: "linear-gradient(180deg, hsl(240 6% 6%) 0%, hsl(240 8% 3%) 60%)" }}
     >
       {/* Header */}
       <div className="flex items-center justify-between">
