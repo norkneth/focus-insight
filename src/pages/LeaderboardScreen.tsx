@@ -165,7 +165,7 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="mx-6 mb-4 flex items-center justify-between bg-card rounded-2xl px-4 py-3.5 border border-border"
+          className="mx-6 mb-4 flex items-center justify-between card-elevated rounded-2xl px-4 py-3.5 glow-sm"
         >
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
