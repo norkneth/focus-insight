@@ -100,8 +100,8 @@ const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) =
         </div>
         <div className="w-px h-10 bg-border" />
         <div className="flex flex-col items-center">
-          <span className="font-display text-2xl font-bold text-foreground">5.5</span>
-          <span className="text-[10px] tracking-[0.2em] text-muted-foreground mt-1">SAVED HOURS</span>
+          <span className="font-display text-2xl text-bright">5.5</span>
+          <span className="text-[10px] tracking-[0.2em] text-dim mt-1">SAVED HOURS</span>
         </div>
       </motion.div>
 
