@@ -87,7 +87,7 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center justify-center gap-0 mx-6 mt-4 mb-6 p-1 bg-secondary rounded-full relative">
+      <div className="flex items-center justify-center gap-0 mx-6 mt-4 mb-6 p-1 bg-surface-gradient rounded-full relative glow-sm">
         {tabs.map((tab) => (
           <button
             key={tab}
