@@ -145,8 +145,8 @@ const ProfileScreen = ({ onBack, onSettings, username: usernameProp }: ProfileSc
         </div>
         <div className="w-px h-12 bg-border" />
         <div className="flex flex-col items-center">
-          <span className="font-display text-3xl font-bold text-foreground">84</span>
-          <span className="text-[9px] tracking-[0.25em] text-muted-foreground mt-1">SESSIONS</span>
+          <span className="font-display text-3xl text-bright">84</span>
+          <span className="text-[9px] tracking-[0.25em] text-dim mt-1">SESSIONS</span>
         </div>
       </div>
 
