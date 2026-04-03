@@ -77,7 +77,7 @@ const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) =
 
 
       {/* Divider */}
-      <div className="h-px bg-border mx-2 mb-5" />
+      <div className="h-px mx-2 mb-5" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--border)), transparent)" }} />
 
       {/* Stats */}
       <motion.div
