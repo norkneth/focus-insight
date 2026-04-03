@@ -1,4 +1,4 @@
-import { ArrowLeft, Settings, Bell, Timer, Shield, LogOut, Pencil, Award, Flame, TrendingUp, Star, Zap } from "lucide-react";
+import { ArrowLeft, Settings, Bell, Timer, Shield, LogOut, Pencil, Flame, TrendingUp, Star, Zap } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 
