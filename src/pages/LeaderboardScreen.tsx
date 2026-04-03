@@ -81,7 +81,7 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
       {/* Header */}
       <div className="flex flex-col items-center px-6 pt-6 pb-2">
         <span className="text-[10px] tracking-[0.3em] text-muted-foreground font-semibold mb-1">LEADERBOARD</span>
-        <h1 className="font-display text-2xl font-bold text-foreground tracking-tight">
+        <h1 className="font-display text-2xl font-extrabold text-foreground tracking-tight drop-shadow-sm">
           Stay hard to catch.
         </h1>
       </div>
