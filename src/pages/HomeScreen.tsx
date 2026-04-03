@@ -84,7 +84,7 @@ const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) =
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.5 }}
-        className="flex items-center justify-around mb-6"
+        className="flex items-center justify-around mb-6 card-elevated rounded-2xl py-5"
       >
         <div className="flex flex-col items-center">
           <div className="flex items-center gap-1">
