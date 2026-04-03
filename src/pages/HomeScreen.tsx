@@ -88,8 +88,8 @@ const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) =
       >
         <div className="flex flex-col items-center">
           <div className="flex items-center gap-1">
-            <span className="font-display text-2xl font-bold text-foreground">{streak}</span>
-            <Flame size={streak >= 14 ? 22 : streak >= 7 ? 18 : 14} className={`${streakColors[streakLevel]} transition-all`} />
+            <span className="font-display text-2xl text-bright">{streak}</span>
+            <Flame size={streak >= 14 ? 22 : streak >= 7 ? 18 : 14} className={`${streakColors[streakLevel]} transition-all drop-shadow-md`} />
           </div>
           <span className="text-[10px] tracking-[0.2em] text-muted-foreground mt-1">STREAK</span>
         </div>
