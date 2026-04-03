@@ -82,7 +82,7 @@ const FocusRing = ({ score, onTap, showBreakdown = false }: FocusRingProps) => {
           strokeDasharray={circumference}
           strokeDashoffset={dashOffset}
           className="transition-all duration-1000 ease-out"
-          style={{ filter: "drop-shadow(0 0 10px hsla(0, 0%, 100%, 0.35))" }}
+          style={{ filter: "drop-shadow(0 0 12px hsla(220, 60%, 70%, 0.3))" }}
         />
       </svg>
 

@@ -222,7 +222,7 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
                     <span className="text-[10px] text-dim">top {entry.percentile.replace("top ", "")} performer</span>
                   </div>
 
-                  <span className="font-display text-base font-bold text-foreground">{entry.score}</span>
+                  <span className="font-display text-base text-bright">{entry.score}</span>
                 </motion.div>
               );
             })}

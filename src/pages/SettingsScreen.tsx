@@ -70,7 +70,8 @@ const SettingsScreen = ({ onBack }: SettingsScreenProps) => {
       animate={{ x: 0 }}
       exit={{ x: "100%" }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className="min-h-screen bg-background flex flex-col pb-28"
+      className="min-h-screen flex flex-col pb-28"
+      style={{ background: "linear-gradient(180deg, hsl(240 6% 6%) 0%, hsl(240 8% 3%) 60%)" }}
     >
       <div className="flex items-center justify-center px-6 pt-6 pb-4 relative">
         <button onClick={onBack} className="absolute left-6 active:scale-90 transition-transform">

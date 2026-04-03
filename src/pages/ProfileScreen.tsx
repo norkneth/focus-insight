@@ -204,8 +204,8 @@ const ProfileScreen = ({ onBack, onSettings, username: usernameProp }: ProfileSc
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: a.unlocked ? 1 : 0.4, scale: 1 }}
                 transition={{ delay: 0.7 + i * 0.08 }}
-                className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border ${
-                  a.unlocked ? "bg-card border-border glow-sm" : "bg-secondary border-border"
+                className={`flex items-center gap-2 px-3 py-2.5 rounded-xl ${
+                  a.unlocked ? "card-elevated glow-sm" : "bg-secondary border border-border"
                 }`}
               >
                 <Icon size={14} className={a.unlocked ? "text-foreground" : "text-muted-foreground"} />
