@@ -140,8 +140,8 @@ const ProfileScreen = ({ onBack, onSettings, username: usernameProp }: ProfileSc
       {/* Stats */}
       <div className="flex items-center justify-around mx-6 py-5 border-y border-border mb-4 card-elevated rounded-2xl">
         <div className="flex flex-col items-center">
-          <span className="font-display text-3xl font-bold text-foreground">412</span>
-          <span className="text-[9px] tracking-[0.25em] text-muted-foreground mt-1">FOCUS HOURS</span>
+          <span className="font-display text-3xl text-bright">412</span>
+          <span className="text-[9px] tracking-[0.25em] text-dim mt-1">FOCUS HOURS</span>
         </div>
         <div className="w-px h-12 bg-border" />
         <div className="flex flex-col items-center">
