@@ -172,7 +172,7 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
               <span className="text-xs font-bold text-muted-foreground">#{userEntry.rank}</span>
               <span className="text-sm font-semibold text-foreground">{userEntry.name}</span>
             </div>
-            <span className="text-[10px] text-muted-foreground tracking-wide">{userEntry.percentile} · {userEntry.badge}</span>
+            <span className="text-[10px] text-dim tracking-wide">{userEntry.percentile} · {userEntry.badge}</span>
           </div>
           <div className="flex flex-col items-end">
             <span className="font-display text-xl font-bold text-foreground">{userEntry.score}</span>
