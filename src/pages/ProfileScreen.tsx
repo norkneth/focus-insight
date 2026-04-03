@@ -131,15 +131,6 @@ const ProfileScreen = ({ onBack, onSettings, username: usernameProp }: ProfileSc
           <>
             <h2 className="font-display text-2xl font-bold text-foreground mt-4">{name}</h2>
             <p className="text-[10px] tracking-[0.25em] text-muted-foreground mt-1 uppercase">{title}</p>
-            {/* User type badge */}
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              className={`mt-2 px-3 py-1 rounded-full border text-[10px] tracking-[0.15em] font-semibold ${badgeColor}`}
-            >
-              {userType.toUpperCase()}
-            </motion.div>
           </>
         )}
       </div>
