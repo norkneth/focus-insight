@@ -198,7 +198,7 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
                   transition={{ delay: 0.05 + idx * 0.02, duration: 0.25 }}
                   className={`flex items-center py-3.5 border-b border-border ${isUserRow ? "bg-card/50 -mx-2 px-2 rounded-lg" : ""}`}
                 >
-                  <span className="font-display text-base font-bold w-8 text-muted-foreground">
+                  <span className="font-display text-base font-bold w-8 text-dim">
                     {entry.rank}
                   </span>
 
