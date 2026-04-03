@@ -74,66 +74,6 @@ const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) =
         </motion.p>
       </div>
 
-      {/* Dynamic Insight Card */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.5 }}
-        className="mb-5"
-      >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={insightIdx}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-            className="bg-card border border-border rounded-2xl px-4 py-3.5 flex items-center gap-3 glow-sm"
-          >
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-              currentInsight.type === "success" ? "bg-emerald-500/15" :
-              currentInsight.type === "warning" ? "bg-amber-500/15" : "bg-red-500/15"
-            }`}>
-              <InsightIcon size={15} className={
-                currentInsight.type === "success" ? "text-emerald-400" :
-                currentInsight.type === "warning" ? "text-amber-400" : "text-red-400"
-              } />
-            </div>
-            <p className="text-sm text-foreground flex-1 font-medium leading-snug">{currentInsight.text}</p>
-          </motion.div>
-        </AnimatePresence>
-      </motion.div>
-
-      {/* Daily Goal Progress */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7, duration: 0.5 }}
-        className="mb-6"
-      >
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-[10px] tracking-[0.2em] text-muted-foreground font-medium">DAILY GOAL</span>
-          <span className={`text-xs font-semibold ${goalOnTrack ? "text-emerald-400" : "text-red-400"}`}>
-            {goalActual}h / {goalTarget}h
-          </span>
-        </div>
-        <div className="h-2 bg-secondary rounded-full overflow-hidden">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: `${goalPercent}%` }}
-            transition={{ delay: 1, duration: 1, ease: "easeOut" }}
-            className={`h-full rounded-full ${goalOnTrack
-              ? "bg-gradient-to-r from-emerald-600 to-emerald-400"
-              : "bg-gradient-to-r from-red-600 to-red-400"
-            }`}
-            style={{
-              boxShadow: goalOnTrack
-                ? "0 0 12px hsla(140, 70%, 45%, 0.4)"
-                : "0 0 12px hsla(0, 72%, 51%, 0.4)",
-            }}
-          />
-        </div>
-      </motion.div>
 
       {/* Divider */}
       <div className="h-px bg-border mx-2 mb-5" />
