@@ -1,6 +1,6 @@
-import { User, Zap, Flame, TrendingUp, AlertTriangle, Target } from "lucide-react";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { User, Zap, Flame } from "lucide-react";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import FocusRing from "@/components/FocusRing";
 
 interface HomeScreenProps {
@@ -9,36 +9,10 @@ interface HomeScreenProps {
   onOpenProfile?: () => void;
 }
 
-const insights = [
-  { icon: AlertTriangle, text: "You wasted 1.8h on Instagram today", type: "danger" as const },
-  { icon: TrendingUp, text: "Your focus improved +12% from yesterday", type: "success" as const },
-  { icon: Flame, text: "You are close to breaking your best streak!", type: "warning" as const },
-  { icon: Target, text: "Someone just passed you on the leaderboard", type: "danger" as const },
-  { icon: Flame, text: "Your streak will break in 2 hours", type: "warning" as const },
-];
-
 const HomeScreen = ({ username, onOpenTimer, onOpenProfile }: HomeScreenProps) => {
   const score = 85;
   const percentile = 76;
   const [showBreakdown, setShowBreakdown] = useState(false);
-  const [insightIdx, setInsightIdx] = useState(0);
-
-  // Rotate insights
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setInsightIdx((i) => (i + 1) % insights.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const currentInsight = insights[insightIdx];
-  const InsightIcon = currentInsight.icon;
-
-  // Daily goal
-  const goalTarget = 6; // hours saved target
-  const goalActual = 4.2;
-  const goalPercent = Math.min((goalActual / goalTarget) * 100, 100);
-  const goalOnTrack = goalPercent >= 60;
 
   // Streak level
   const streak = 12;
