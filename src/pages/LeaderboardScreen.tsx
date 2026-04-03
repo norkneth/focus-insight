@@ -129,7 +129,7 @@ const LeaderboardScreen = ({ username = "You" }: LeaderboardScreenProps) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1, duration: 0.4 }}
-              className={`flex-1 flex flex-col items-center bg-card border ${cardBorder} rounded-2xl py-4 px-2 ${isCenter ? "scale-[1.02]" : ""}`}
+              className={`flex-1 flex flex-col items-center card-elevated rounded-2xl py-4 px-2 ${isCenter ? "scale-[1.02]" : ""}`}
               style={{ boxShadow: cardGlow }}
             >
               {/* Avatar */}
